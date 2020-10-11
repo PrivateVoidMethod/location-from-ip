@@ -21,6 +21,25 @@
   </mat-form-field>
 
   <mat-card *ngIf="ipInformation">
-    <p>City: {{ ipInformation.city }}</p>
+    <p>
+      Continent: {{ ipInformation.continent_name }} ({{
+        ipInformation.continent_code
+      }})
+    </p>
+    <p>
+      Location:
+      {{ ipInformation.city }}, {{ ipInformation.country_name }} ({{
+        ipInformation.country_code
+      }})
+      <img
+        class="country_flag"
+        src="{{ ipInformation.location.country_flag }}"
+      />
+    </p>
+    <p>Region {{ ipInformation.region_name }}</p>
+    <p>
+      Location: lat {{ ipInformation.latitude }} lon
+      {{ ipInformation.longitude }}
+    </p>
   </mat-card>
 </div>
