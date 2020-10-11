@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IpService } from 'src/services/ip.service';
+import { Subscription } from 'rxjs';
+import { IpStack } from 'src/models/ipstack.model';
 
 @Component({
   selector: 'app-root',
@@ -7,13 +9,34 @@ import { IpService } from 'src/services/ip.service';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent implements OnInit {
-  title = 'location-from-ip';
-
   constructor(private ipService: IpService) {}
+  /** Variable to store all our subscriptions so we easy can unsubscripe */
+  private subscriptions: Subscription = new Subscription();
+  /** The ip address */
+  public ipAddress: string;
+  /** information from the ip address */
+  public ipInformation: IpStack = null;
 
   ngOnInit(): void {
-    this.ipService.get("178.155.234.220").subscribe((ipData) => {
-      console.log(ipData)
-    })
+    this.subscriptions.add(
+      this.ipService.get().subscribe(data => {
+        if (data !== null) {
+          this.ipAddress = data.ip;
+          if (this.ipAddress && this.ipAddress !== '') {
+            this.getInformationFromIp(this.ipAddress);
+          }
+        }
+      })
+    );
+  }
+
+  getInformationFromIp(ip: string) {
+    this.subscriptions.add(
+      this.ipService.getFromIp(ip).subscribe(ipInformation => {
+        if (ipInformation) {
+          this.ipInformation = ipInformation;
+        }
+      })
+    );
   }
 }

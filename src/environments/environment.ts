@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  ipApiUrl: 'http://api.ipstack.com/'
+  ipstackApiUrl: 'http://api.ipstack.com/',
+  ipstackApiKey: '926fccdfec9e7b7625a70449afc3c3c2',
+  ipifyUrl: 'http://api.ipify.org/'
 };
 
 /*
