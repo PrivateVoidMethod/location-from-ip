@@ -1,22 +1,26 @@
 <div>
-  <p>ip address</p>
-  <mat-form-field style="width: 200px">
-    <mat-label>Clearable input</mat-label>
-    <input matInput type="text" (ngModel)="(ipAddress)" />
+  <mat-form-field class="form_field">
+    <mat-label>ip address</mat-label>
+    <input
+      matInput
+      type="text"
+      [ngModel]="ipAddress"
+      (ngModelChange)="valuechange($event)"
+      pattern="^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$"
+    />
     <button
       mat-button
       *ngIf="ipAddress"
       matSuffix
       mat-icon-button
       aria-label="Clear"
-      (click)="value = ''"
+      (click)="ipAddress = ''"
     >
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
 
-  <div *ngIf="ipInformation">
-    city {{ ipInformation.city }} continent code
-    {{ ipInformation.continent_code }}
-  </div>
+  <mat-card *ngIf="ipInformation">
+    <p>City: {{ ipInformation.city }}</p>
+  </mat-card>
 </div>

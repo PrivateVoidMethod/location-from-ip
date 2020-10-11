@@ -33,10 +33,19 @@ export class AppComponent implements OnInit {
   getInformationFromIp(ip: string) {
     this.subscriptions.add(
       this.ipService.getFromIp(ip).subscribe(ipInformation => {
-        if (ipInformation) {
+        if (ipInformation.city !== null) {
           this.ipInformation = ipInformation;
+        } else {
+          this.ipInformation = null;
         }
       })
     );
+  }
+
+  valuechange(newValue) {
+    let regex = new RegExp('^(?:[0-9]{1,3}.){3}[0-9]{1,3}$');
+    if (regex.test(newValue)) {
+      this.getInformationFromIp(newValue);
+    }
   }
 }
