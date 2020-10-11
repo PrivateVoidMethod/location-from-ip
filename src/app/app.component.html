@@ -37,9 +37,15 @@
       />
     </p>
     <p>Region {{ ipInformation.region_name }}</p>
-    <p>
-      Location: lat {{ ipInformation.latitude }} lon
-      {{ ipInformation.longitude }}
-    </p>
+
+    <agm-map
+      [latitude]="ipInformation.latitude"
+      [longitude]="ipInformation.longitude"
+    >
+      <agm-marker
+        [latitude]="ipInformation.latitude"
+        [longitude]="ipInformation.longitude"
+      ></agm-marker>
+    </agm-map>
   </mat-card>
 </div>
